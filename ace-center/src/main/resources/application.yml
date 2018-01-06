@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: ace-center
+
+server:
+  port: 8761
+  
+eureka:
+  client:
+    register-with-eureka: false # 不作为一个客户端注册到注册中心
+    fetch-registry: false

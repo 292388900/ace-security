@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: ace-config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://git.oschina.net/geek_qi/AG-Config.git
+
+server:
+  port: 8750
+
+eureka:
+  instance:
+    status-page-url-path: /info
+    health-check-url-path: /health
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
