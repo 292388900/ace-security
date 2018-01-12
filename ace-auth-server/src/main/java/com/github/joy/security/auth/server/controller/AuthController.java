@@ -10,12 +10,17 @@
  */
 package com.github.joy.security.auth.server.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.joy.security.auth.server.service.AuthService;
 import com.github.joy.security.auth.server.util.user.JwtAuthenticationRequest;
+import com.github.joy.security.auth.server.util.user.JwtAuthenticationResponse;
 
 /**
  * <一句话功能简述>
@@ -30,7 +35,15 @@ import com.github.joy.security.auth.server.util.user.JwtAuthenticationRequest;
 @RequestMapping("jwt")
 public class AuthController
 {
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest){
-        return null;
+    @Value("${jwt.token-header}")
+    private String tokenHeader;
+    
+    @Autowired
+    private AuthService authService;
+    
+    @PostMapping(value="token")
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest) throws Exception{
+        final String token = authService.login(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+        return ResponseEntity.ok(new JwtAuthenticationResponse(token));
     }
 }

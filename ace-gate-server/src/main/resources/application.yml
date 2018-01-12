@@ -1,0 +1,70 @@
+spring:
+  application:
+    name: ace-gate
+  thymeleaf:
+    mode: LEGACYHTML5
+    cache: false
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non-null
+  redis:
+    database: 1
+    host: 127.0.0.1
+    pool:
+      max-active: 20
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    
+server:
+  port: 8765
+  
+zuul:
+  ignored-services: "*"
+  sensitive-headers:
+  prefix: /api
+  routes:
+    back:
+      path: /admin/**
+      service-id: ace-admin
+    auth:
+      path: /auth/**
+      service-id: ace-auth
+      
+ribbon:
+  eureka: 
+    enabled: true
+  ReadTimeout: 60000
+  ConnectionTimeout: 60000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+  OkToRetryOnAllOperations: false
+  
+hystrix:
+  threadpool:
+    default:
+      coreSize: 1000
+      maxQueueSize: 1000
+      queueSizeRejectionThreshold: 500
+    command:
+      default:
+        execution:
+          isolation:
+            thread:
+              timeoutInMilliseconds: 50000
+
+gate:
+  ignore:
+    startWith: /static,/auth/jwt
+    
+auth:
+  serviceId: ace-auth
+  user:
+    token-header: Authorization
+  client:
+    token-header: client-token
+    id: ace-gate
+    secret: 123456

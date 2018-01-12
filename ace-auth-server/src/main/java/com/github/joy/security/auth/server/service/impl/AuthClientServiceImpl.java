@@ -10,8 +10,12 @@
  */
 package com.github.joy.security.auth.server.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.joy.security.admin.common.exception.auth.ClientInvalidException;
+import com.github.joy.security.auth.server.entity.Client;
+import com.github.joy.security.auth.server.mapper.ClientMapper;
 import com.github.joy.security.auth.server.service.AuthClientService;
 
 /**
@@ -26,7 +30,9 @@ import com.github.joy.security.auth.server.service.AuthClientService;
 @Service
 public class AuthClientServiceImpl implements AuthClientService
 {
-
+    @Autowired
+    private ClientMapper clientMapper;
+    
     /**
      * 重载方法
      * @param clientId
@@ -40,6 +46,24 @@ public class AuthClientServiceImpl implements AuthClientService
     {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    /**
+     * 重载方法
+     * @param clientId
+     * @param secret
+     * @throws Exception
+     */
+    @Override
+    public void volidate(String clientId, String secret)
+        throws Exception
+    {
+        Client client = new Client();
+        client.setCode(clientId);
+        client = clientMapper.selectOne(client);
+        if(client == null || !client.getSecret().equals(secret)){
+            throw new ClientInvalidException("Client not found or Client secret is error!");
+        }
     }
     
 }

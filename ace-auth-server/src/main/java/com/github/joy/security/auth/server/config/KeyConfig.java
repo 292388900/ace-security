@@ -1,5 +1,5 @@
 /*
- * 文 件 名:  FeignConfig.java
+ * 文 件 名:  KeyConfig.java
  * 版    权:  SSSCC Technologies Co., Ltd. Copyright YYYY-YYYY,  All rights reserved
  * 描    述:  <描述>
  * 修 改 人:  
@@ -10,7 +10,10 @@
  */
 package com.github.joy.security.auth.server.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+
+import lombok.Data;
 
 /**
  * <一句话功能简述>
@@ -22,7 +25,17 @@ import org.springframework.context.annotation.Configuration;
  * @since  [产品/模块版本]
  */
 @Configuration
-public class FeignConfig
+@Data
+public class KeyConfig
 {
+    @Value("${jwt.rsa-secret}")
+    private String userSecret;
     
+    @Value("${client.rsa-secret}")
+    private String serviceSecret;
+    
+    private byte[] userPubKey;
+    private byte[] userPriKey;
+    private byte[] servicePriKey;
+    private byte[] servicePubKey;
 }

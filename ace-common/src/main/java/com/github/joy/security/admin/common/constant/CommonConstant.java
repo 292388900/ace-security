@@ -29,4 +29,13 @@ public class CommonConstant
     }
     
     public static int PW_ENCORDER_SALT = 12;
+    
+    //异常码
+    public static interface EX_CODE{
+        Integer TOKEN_ERROR = 40101;
+        Integer USER_INVALID = 40102;
+        Integer CLIENT_INVALID = 40131;
+        Integer CLIENT_FORBIDDEN = 40331;
+        Integer OTHER = 500;
+    }
 }

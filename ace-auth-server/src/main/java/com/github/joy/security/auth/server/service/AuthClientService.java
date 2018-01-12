@@ -22,4 +22,6 @@ package com.github.joy.security.auth.server.service;
 public interface AuthClientService
 {
     public String apply(String clientId, String secret) throws Exception;
+    
+    public void volidate(String clientId, String secret) throws Exception;
 }

@@ -22,4 +22,31 @@
     <result column="upd_name" property="updName" jdbcType="VARCHAR" />
     <result column="upd_host" property="updHost" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <select id="selectAuthorityMenuByUserId" resultMap="BaseResultMap">
+  	SELECT DISTINCT
+		t.*
+	FROM
+		base_resource_authority ra
+	INNER JOIN base_menu t ON ra.resource_id = t.id
+	AND ra.authority_id IN (
+		SELECT
+			group_id
+		FROM
+			base_group_member
+		WHERE
+			user_id = #{userId}
+		UNION
+			SELECT
+				group_id
+			FROM
+				base_group_leader
+			WHERE
+				user_id = #{userId}
+	)
+	AND ra.authority_type = 'group'
+	AND ra.resource_type = 'menu'
+	ORDER BY
+		t.id;
+  </select>
 </mapper>

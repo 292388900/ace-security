@@ -1,0 +1,27 @@
+spring:
+  cloud:
+    config:
+      discovery: 
+        service-id: ace-config
+        enabled: true
+      label: master
+      name: gate
+      profile: dev
+      
+eureka:
+  instance:
+    status-page-url-path: /info
+    health-check-url-path: /health
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+ 
+feign:
+  compression:
+    request:
+      enabled: true
+      min-request-size: 2048
+      mime-types: text/xml,application/xml,application/json
+    response:
+      enabled: true
+      

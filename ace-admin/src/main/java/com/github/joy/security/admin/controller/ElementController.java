@@ -46,7 +46,7 @@ public class ElementController extends BaseController<ElementBiz, Element>
     @ResponseBody
     public ObjectRestResponse<List<Element>> getAuthorityElement(){
         int userId = userBiz.getUserByUsername(getCurrentUser()).getId();
-        List<Element> elements = baseBiz.getAuthorityElementByUserId(userId+"");
+        List<Element> elements = baseBiz.getAuthorityElementByUserId(userId);
         return new ObjectRestResponse<List<Element>>().data(elements);
     }
 }

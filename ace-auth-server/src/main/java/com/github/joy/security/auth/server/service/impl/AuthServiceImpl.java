@@ -10,9 +10,15 @@
  */
 package com.github.joy.security.auth.server.service.impl;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.joy.security.api.vo.user.UserInfo;
+import com.github.joy.security.auth.common.util.jwt.JWTInfo;
+import com.github.joy.security.auth.server.feign.IUserService;
 import com.github.joy.security.auth.server.service.AuthService;
+import com.github.joy.security.auth.server.util.user.JwtTokenUtil;
 
 /**
  * <一句话功能简述>
@@ -26,7 +32,19 @@ import com.github.joy.security.auth.server.service.AuthService;
 @Service
 public class AuthServiceImpl implements AuthService
 {
-
+    private JwtTokenUtil jwtTokenUtil;
+    private IUserService userService;
+    
+    /** 
+     * <默认构造函数>
+     */
+    @Autowired
+    public AuthServiceImpl(JwtTokenUtil jwtTokenUtil, IUserService userService)
+    {
+        this.jwtTokenUtil = jwtTokenUtil;
+        this.userService = userService;
+    }
+    
     /**
      * 重载方法
      * @param username
@@ -38,8 +56,12 @@ public class AuthServiceImpl implements AuthService
     public String login(String username, String password)
         throws Exception
     {
-        // TODO Auto-generated method stub
-        return null;
+        UserInfo userInfo = userService.validate(username, password);
+        String token = "";
+        if(!StringUtils.isEmpty(userInfo.getId())){
+            token = jwtTokenUtil.generateToken(new JWTInfo(userInfo.getUsername(), userInfo.getId()+"", userInfo.getName()));
+        }
+        return token;
     }
     
 }

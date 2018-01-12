@@ -10,11 +10,13 @@
  */
 package com.github.joy.security.admin.rpc;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.joy.security.admin.rpc.service.PermissionService;
 import com.github.joy.security.api.vo.user.UserInfo;
 
 /**
@@ -30,8 +32,11 @@ import com.github.joy.security.api.vo.user.UserInfo;
 @RequestMapping("api")
 public class UserRest
 {
+    @Autowired
+    private PermissionService permissionService;
+    
     @PostMapping(value="/user/validate")
     public @ResponseBody UserInfo validate(String username, String password){
-        return null;
+        return permissionService.validate(username, password);
     }
 }

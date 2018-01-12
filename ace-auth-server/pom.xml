@@ -98,6 +98,16 @@
             <artifactId>ace-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.joy.security</groupId>
+            <artifactId>ace-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.joy.security.auth</groupId>
+            <artifactId>ace-auth-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

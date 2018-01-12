@@ -161,13 +161,11 @@
             <artifactId>ace-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <!--
         <dependency>
             <groupId>com.github.joy.security.auth</groupId>
             <artifactId>ace-auth-client</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        -->
         <dependency>
             <groupId>com.github.wxiaoqi</groupId>
             <artifactId>ace-cache</artifactId>

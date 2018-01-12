@@ -35,7 +35,7 @@ import com.github.joy.security.admin.mapper.ElementMapper;
 public class ElementBiz extends BaseBiz<ElementMapper, Element>
 {   
     @Cache(key="permission:ele:u{1}")
-    public List<Element> getAuthorityElementByUserId(String userId){
+    public List<Element> getAuthorityElementByUserId(int userId){
         return mapper.selectAuthorityElementByUserId(userId);
     }
     

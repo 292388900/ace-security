@@ -2,6 +2,9 @@ package com.github.joy.security.admin.entity;
 
 import java.util.Date;
 
+import javax.persistence.Table;
+
+@Table(name="base_user")
 public class User {
     private Integer id;
 
