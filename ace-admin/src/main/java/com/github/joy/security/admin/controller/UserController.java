@@ -10,6 +10,8 @@
  */
 package com.github.joy.security.admin.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.joy.security.admin.biz.UserBiz;
+import com.github.joy.security.admin.common.controller.BaseController;
+import com.github.joy.security.admin.entity.User;
 import com.github.joy.security.admin.rpc.service.PermissionService;
 import com.github.joy.security.admin.vo.FrontUser;
+import com.github.joy.security.admin.vo.MenuTree;
 
 /**
  * <一句话功能简述>
@@ -31,7 +37,7 @@ import com.github.joy.security.admin.vo.FrontUser;
  */
 @RestController
 @RequestMapping("user")
-public class UserController
+public class UserController extends BaseController<UserBiz, User>
 {
     @Autowired
     private PermissionService permissionService; 
@@ -45,5 +51,10 @@ public class UserController
         }else{
             return ResponseEntity.ok(user);
         }
+    }
+    
+    @GetMapping(value="/front/menus")
+    public @ResponseBody List<MenuTree> getMenusByUsername(String token) throws Exception{
+        return permissionService.getMenusByUsername(token);
     }
 }

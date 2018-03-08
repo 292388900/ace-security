@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-import com.github.joy.security.auth.client.config.ServiceAutoConfig;
+import com.github.joy.security.auth.client.config.ServiceAuthConfig;
 import com.github.joy.security.auth.client.config.UserAuthConfig;
 
 /**
@@ -33,8 +33,8 @@ import com.github.joy.security.auth.client.config.UserAuthConfig;
 public class AutoConfiguration
 {
     @Bean
-    ServiceAutoConfig getServiceAuthConfig(){
-        return new ServiceAutoConfig();
+    ServiceAuthConfig getServiceAuthConfig(){
+        return new ServiceAuthConfig();
     }
     
     @Bean

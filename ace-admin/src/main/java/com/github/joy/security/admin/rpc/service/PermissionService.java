@@ -24,11 +24,13 @@ import org.springframework.stereotype.Service;
 import com.github.joy.security.admin.biz.ElementBiz;
 import com.github.joy.security.admin.biz.MenuBiz;
 import com.github.joy.security.admin.biz.UserBiz;
+import com.github.joy.security.admin.common.util.TreeUtil;
 import com.github.joy.security.admin.constant.AdminCommonConstant;
 import com.github.joy.security.admin.entity.Element;
 import com.github.joy.security.admin.entity.Menu;
 import com.github.joy.security.admin.entity.User;
 import com.github.joy.security.admin.vo.FrontUser;
+import com.github.joy.security.admin.vo.MenuTree;
 import com.github.joy.security.api.vo.authority.PermissionInfo;
 import com.github.joy.security.api.vo.user.UserInfo;
 import com.github.joy.security.auth.client.jwt.UserAuthUtil;
@@ -148,5 +150,35 @@ public class PermissionService
             info.setMenu(element.getMenuId());
             result.add(info);
         }
+    }
+    
+    public List<MenuTree> getMenusByUsername(String token) throws Exception{
+        String username = userAuthUtil.getInfoFromToken(token).getUniqueName();
+        if(username == null){
+            return null;
+        }
+        User user = userBiz.getUserByUsername(username);
+        List<Menu> menus = menuBiz.getUserAuthorityMenuByUserId(user.getId());
+        return getMenuTree(menus, AdminCommonConstant.ROOT);
+    }
+    
+    private List<MenuTree> getMenuTree(List<Menu> menus, int root){
+        List<MenuTree> trees = new ArrayList<MenuTree>();
+        MenuTree node = null;
+        for(Menu menu : menus){
+            node = new MenuTree();
+            BeanUtils.copyProperties(menu, node);
+            trees.add(node);
+        }
+        return TreeUtil.build(trees, root);
+    }
+    
+    public List<PermissionInfo> getAllPermission(){
+        List<Menu> menus = menuBiz.selectListAll();
+        List<PermissionInfo> result = new ArrayList<PermissionInfo>();
+        menu2permission(menus, result);
+        List<Element> elements = elementBiz.selectListAll();
+        element2permission(elements, result);
+        return result;
     }
 }

@@ -2,7 +2,13 @@ package com.github.joy.security.admin.entity;
 
 import java.util.Date;
 
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Table(name="base_group_type")
 public class GroupType {
+    
+    @Id
     private Integer id;
 
     private String code;

@@ -12,7 +12,6 @@ package com.github.joy.security.auth.client.jwt;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Service;
 
 import com.github.joy.security.auth.client.config.UserAuthConfig;
 import com.github.joy.security.auth.client.exception.JwtIllegalArgumentException;

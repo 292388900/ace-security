@@ -44,4 +44,14 @@ public class AuthRemoteEvent extends RemoteApplicationEvent
         super(source, originService, destinationService);
         this.allowedClient = allowedClient;
     }
+
+    public List<String> getAllowedClient()
+    {
+        return allowedClient;
+    }
+
+    public void setAllowedClient(List<String> allowedClient)
+    {
+        this.allowedClient = allowedClient;
+    }
 }

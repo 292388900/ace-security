@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.github.joy.security.admin.common.msg.BaseResponse;
 import com.github.joy.security.admin.common.msg.ObjectRestResponse;
-import com.github.joy.security.auth.client.config.ServiceAutoConfig;
+import com.github.joy.security.auth.client.config.ServiceAuthConfig;
 import com.github.joy.security.auth.client.config.UserAuthConfig;
 import com.github.joy.security.auth.client.feign.ServiceAuthFeign;
 
@@ -39,7 +39,7 @@ public class AuthClientRunner implements CommandLineRunner
     private ServiceAuthFeign serviceAuthFeign;
     
     @Autowired
-    private ServiceAutoConfig serviceAutoConfig;
+    private ServiceAuthConfig serviceAutoConfig;
     
     @Autowired
     private UserAuthConfig userAuthConfig;

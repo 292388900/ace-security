@@ -23,7 +23,7 @@ import org.springframework.beans.factory.annotation.Value;
  * @see  [相关类/方法]
  * @since  [产品/模块版本]
  */
-public class ServiceAutoConfig
+public class ServiceAuthConfig
 {
     private byte[] pubKeyByte;
     

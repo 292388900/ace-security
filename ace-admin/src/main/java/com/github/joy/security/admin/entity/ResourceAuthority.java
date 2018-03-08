@@ -2,7 +2,13 @@ package com.github.joy.security.admin.entity;
 
 import java.util.Date;
 
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Table(name="base_resource_authority")
 public class ResourceAuthority {
+    
+    @Id
     private Integer id;
 
     private String authorityId;

@@ -10,13 +10,19 @@
  */
 package com.github.joy.security.admin.rpc;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ace.cache.annotation.Cache;
 import com.github.joy.security.admin.rpc.service.PermissionService;
+import com.github.joy.security.api.vo.authority.PermissionInfo;
 import com.github.joy.security.api.vo.user.UserInfo;
 
 /**
@@ -38,5 +44,17 @@ public class UserRest
     @PostMapping(value="/user/validate")
     public @ResponseBody UserInfo validate(String username, String password){
         return permissionService.validate(username, password);
+    }
+    
+    @Cache(key="permission")
+    @GetMapping(value="/permissions")
+    public @ResponseBody List<PermissionInfo> getAllPermission(){
+        return permissionService.getAllPermission();
+    }
+    
+    @Cache(key="permission:u{1}")
+    @GetMapping(value="/user/{username}/permissions")
+    public @ResponseBody List<PermissionInfo> getPermissionByUsername(@PathVariable("username") String username){
+        return permissionService.getPermissionByUsername(username);
     }
 }
